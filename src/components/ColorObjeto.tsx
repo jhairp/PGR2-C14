@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import './../styles/ColorHarmonizer.scss';
 
 const ColorObjeto : React.FC = () => {
@@ -9,8 +9,10 @@ const ColorObjeto : React.FC = () => {
         {type: 'Triada A', val: `hsl(${(h + 120) % 360}, 70%, 50%)`},
         {type: 'Triada B', val: `hsl(${(h + 240) % 360}, 70%, 50%)`},
     ];
+
+    const [bgColor, setBgColor] = useState<string>('#1e1e');
     return (
-        <section className="harmonies">
+        <section className="contrast-tool">
             <input
                 type="range"
                 min="0"
@@ -18,7 +20,7 @@ const ColorObjeto : React.FC = () => {
                 value={hue}
                 onChange={(e)=>setHue(Number(e.target.value))}
             />
-            <div className="grid">
+            <div className="grid" style={{background: `hsl(${hue}, 70%, 50%)`}}  >
                 {getHarmonizedColor(hue).map((objeto) => (
                     <div 
                         key={objeto.type}
@@ -31,6 +33,7 @@ const ColorObjeto : React.FC = () => {
             </div>
 
         </section>
+        
     );
 };
 export default ColorObjeto;
